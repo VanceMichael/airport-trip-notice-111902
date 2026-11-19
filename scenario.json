@@ -1,0 +1,209 @@
+{
+  "label": "航段与机场接驳资料接口",
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/airport/bulletin",
+      "note": "生效时间含时区。exception 仅约束对应的物理航段和起降角色。",
+      "steps": [
+        {
+          "tz": "Asia/Shanghai",
+          "cutoff": "2026-11-26T00:00:00+08:00",
+          "oldAirport": "HC-O",
+          "newAirport": "HC-N",
+          "exception": [
+            {
+              "leg": "M33",
+              "role": "arrive",
+              "airport": "HC-O"
+            }
+          ]
+        },
+        {
+          "tz": "Asia/Shanghai",
+          "cutoff": "2026-11-26T00:00:00+08:00",
+          "oldAirport": "HC-O",
+          "newAirport": "HC-N",
+          "exception": [
+            {
+              "leg": "M33",
+              "role": "arrive",
+              "airport": "HC-O"
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "kind": "json"
+    },
+    {
+      "method": "GET",
+      "path": "/carrier/operations",
+      "note": "leg 为实际运营航段，serviceDay 按始发站。UTC 时刻以 Z 结尾。recurrence 标识返航后重开的实际运行。",
+      "steps": [
+        [
+          {
+            "leg": "M33",
+            "marketing": [
+              "MD807",
+              "QC201"
+            ],
+            "serviceDay": "2026-11-25",
+            "recurrence": 0,
+            "state": "in_air",
+            "role": "arrive",
+            "planned": "2026-11-25T15:50:00Z",
+            "estimated": "2026-11-25T16:07:00Z"
+          },
+          {
+            "leg": "Q17",
+            "marketing": [
+              "QC246"
+            ],
+            "serviceDay": "2026-11-26",
+            "recurrence": 0,
+            "state": "planned",
+            "role": "depart",
+            "planned": "2026-11-25T17:00:00Z",
+            "airport": "HC-N"
+          }
+        ],
+        [
+          {
+            "leg": "M33",
+            "marketing": [
+              "MD807",
+              "QC201"
+            ],
+            "serviceDay": "2026-11-25",
+            "recurrence": 0,
+            "state": "returned",
+            "role": "arrive"
+          },
+          {
+            "leg": "M33",
+            "marketing": [
+              "MD807",
+              "QC201"
+            ],
+            "serviceDay": "2026-11-25",
+            "recurrence": 1,
+            "state": "arrived",
+            "role": "arrive",
+            "actual": "2026-11-25T16:35:00Z",
+            "airport": "HC-N"
+          },
+          {
+            "leg": "Q17",
+            "marketing": [
+              "QC246"
+            ],
+            "serviceDay": "2026-11-26",
+            "recurrence": 0,
+            "state": "planned",
+            "role": "depart",
+            "planned": "2026-11-25T17:00:00Z",
+            "airport": "HC-N"
+          }
+        ]
+      ],
+      "status": 200,
+      "kind": "json"
+    },
+    {
+      "method": "GET",
+      "path": "/airport/transfer",
+      "note": "单程接驳适用窗口按机场本地时刻，末班时刻含该分钟。跨机场手续中的分钟数另计。",
+      "steps": [
+        {
+          "bus": [
+            {
+              "airport": "HC-O",
+              "pickup": "西厅 A 门",
+              "day": "2026-11-26",
+              "first": "00:00",
+              "last": "00:45"
+            }
+          ],
+          "minima": [
+            {
+              "fromAirport": "HC-O",
+              "toAirport": "HC-N",
+              "minutes": 55,
+              "recheckExtra": 18
+            },
+            {
+              "fromAirport": "HC-N",
+              "toAirport": "HC-N",
+              "minutes": 32,
+              "recheckExtra": 18
+            }
+          ]
+        },
+        {
+          "bus": [
+            {
+              "airport": "HC-O",
+              "pickup": "西厅 A 门",
+              "day": "2026-11-26",
+              "first": "00:00",
+              "last": "00:45"
+            },
+            {
+              "airport": "HC-N",
+              "pickup": "北区 4 柱",
+              "day": "2026-11-26",
+              "first": "00:20",
+              "last": "01:20"
+            }
+          ],
+          "minima": [
+            {
+              "fromAirport": "HC-O",
+              "toAirport": "HC-N",
+              "minutes": 55,
+              "recheckExtra": 18
+            },
+            {
+              "fromAirport": "HC-N",
+              "toAirport": "HC-N",
+              "minutes": 32,
+              "recheckExtra": 18
+            }
+          ]
+        }
+      ],
+      "status": 200,
+      "kind": "json"
+    },
+    {
+      "method": "GET",
+      "path": "/airport/desks",
+      "note": "柜台记录对应机场、承运人及可重办托运的当地时段。",
+      "steps": [
+        [
+          {
+            "airport": "HC-N",
+            "carrier": "QC",
+            "desk": "北厅 6",
+            "day": "2026-11-26",
+            "fromTime": "00:05",
+            "throughTime": "00:46"
+          }
+        ],
+        [
+          {
+            "airport": "HC-N",
+            "carrier": "QC",
+            "desk": "北厅 6",
+            "day": "2026-11-26",
+            "fromTime": "00:05",
+            "throughTime": "00:46"
+          }
+        ]
+      ],
+      "status": 200,
+      "kind": "json"
+    }
+  ]
+}
